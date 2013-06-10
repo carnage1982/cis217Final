@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Mom and Pops' Pizza Shoppe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
+    <!--<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>-->
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+<body>
+    <div data-role="page" id="homePage">
+        <div data-role="header" data-id="navbar" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#homePage" class="ui-btn-active ui-state-persist">Home</a></li>
+                    <li><a href="#menuPage">Menu</a></li>
+                    <li><a href="#mapPage">Map/Directions</a></li>
+                    <li><a href="#aboutPage">About us</a></li>
+                </ul>
+            </div><!-- navbar -->
+        </div><!--header-->
+        <div data-role="content" class="content">
+            <p>
+                Welcome to Mom and Pops' Pizza Shoppe, the finest pizza in town!
+                Call for our specials or order online!
+            </p>
+            <a href="tel:555-555-5555" data-role="button">555-555-5555</a>
+            <p>
+                Hours: 10am-midnight seven days a week.
+            </p>
+            <!--<a href="sms://555-555-5555?body=hello%20dave" data-role="button">Order Pizza Now</a>-->
+            <!--<a href="mailto:dave@lockersoft.com?subject=Hello%20dave&body=what%20are%20you%20doing" data-role="button">email</a>-->
+        </div><!--content-->
+        <div data-role="footer">
+            <p>Mom and Pops' &copy; 2013</p>
+        </div><!--footer-->
+    </div>
+
+    <div data-role="page" id="menuPage">
+        <div data-role="header" data-id="navbar" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#homePage">Home</a></li>
+                    <li><a href="#menuPage" class="ui-btn-active ui-state-persist">Menu</a></li>
+                    <li><a href="#mapPage">Map/Directions</a></li>
+                    <li><a href="#aboutPage">About us</a></li>
+                </ul>
+            </div><!-- navbar -->
+        </div>
+        <div data-role="content" class="content">
+            <!--radio button for crust and size-->
+            <div data-role="fieldcontain">
+                <fieldset data-role="controlgroup">
+                    <legend>Pick up or Delivery?</legend>
+                    <input type="radio" name="obtain1" id="obtain1" class="obtain" value="pickUp" checked="checked" />
+                    <label for="obtain1">Pick up</label>
+
+                    <input type="radio" name="obtain1" id="obtain2" class="obtain" value="delivery"  />
+                    <label for="obtain2">Delivery</label>
+                </fieldset>
+            </div>
+            <div data-role="fieldcontain">
+                <fieldset data-role="controlgroup">
+                    <legend>Choose a crust:</legend>
+                    <input type="radio" name="radio-choice-2" id="crustRegular" class="crust" value="regular" checked="checked" />
+                    <label for="crustRegular">Regular</label>
+
+                    <input type="radio" name="radio-choice-2" id="crustThin" class="crust" value="thin"  />
+                    <label for="crustThin">Thin</label>
+
+                    <input type="radio" name="radio-choice-2" id="crustThick" class="crust" value="thick"  />
+                    <label for="crustThick">Thick</label>
+                </fieldset>
+            </div>
+            <div data-role="fieldcontain">
+                <fieldset data-role="controlgroup">
+                    <legend>Choose a size:</legend>
+                    <input type="radio" name="radio-choice-3" id="small" class="size" value="small" data-price='5.00' checked="checked" />
+                    <label for="small">Small 10" $5</label>
+
+                    <input type="radio" name="radio-choice-3" id="medium" class="size" value="medium" data-price='7.00' />
+                    <label for="medium">Medium 12" $7</label>
+
+                    <input type="radio" name="radio-choice-3" id="family" class="size" value="family" data-price='9.00' />
+                    <label for="family">Family 14" $9</label>
+                </fieldset>
+            </div>
+            <p class="bold">Toppings:</p>
+            <div data-product="1" class="product">
+                <span data-name='pepperoni'>Pepperoni</span>
+                <span data-price='2.00'>2.00</span>
+                <span class='description'>From Italy</span>
+            </div>
+
+            <div data-product="2" class="product">
+                <span data-name='sausage'>Sausage</span>
+                <span data-price='2.00'>2.00</span>
+                <span class='description'>Finest meat</span>
+            </div>
+
+            <div data-product="3" class="product">
+                <span data-name='olives'>Black Olives</span>
+                <span data-price='1.00'>1.00</span>
+                <span class='description'>Fresh</span>
+            </div>
+
+            <div data-product="4" class="product">
+                <span data-name='mushrooms'>Mushrooms</span>
+                <span data-price='1.00'>1.00</span>
+                <span class='description'>Delicious</span>
+            </div>
+            <p class="bold">Drinks:</p>
+            <div data-product="5" class="product">
+                <span data-name='cola'>Cola</span>
+                <span data-price='1.00'>1.00</span>
+                <span class='description'>Classic</span>
+            </div>
+
+            <div data-product="6" class="product">
+                <span data-name='lemonLime'>Lemon-Lime</span>
+                <span data-price='1.00'>1.00</span>
+                <span class='description'>Refreshing</span>
+            </div>
+
+            <div data-product="7" class="product">
+                <span data-name='rootBeer'>Root-beer</span>
+                <span data-price='1.00'>1.00</span>
+                <span class='description'>Tasty</span>
+            </div>
+        </div>
+        <div id="cartDiv">
+
+        </div>
+        <div>
+            <button id="buy">Buy Now</button>
+        </div>
+
+        <div>
+            <button id="saveOrder">Save as Favorite</button>
+        </div>
+        <div>
+            <button id="loadOrder">Load Favorite</button>
+        </div>
+
+        <div data-role="footer">
+            <p>Mom and Pops' &copy; 2013</p>
+        </div>
+    </div>
+
+    <div data-role="page" id="orderPage">
+        <div data-role="header" data-id="navbar" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#homePage">Home</a></li>
+                    <li><a href="#menuPage">Menu</a></li>
+                    <li><a href="#mapPage">Map/Directions</a></li>
+                    <li><a href="#aboutPage">About us</a></li>
+                </ul>
+            </div><!-- navbar -->
+        </div>
+        <!--<div id="orderCart">
+
+        </div>-->
+        <div id="orderForm">
+            <form method="post" action="buy.php?">
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" /><br/>
+                <label for="address">Address:</label>
+                <input type="text" name="address" id="address" /><br/>
+                <label for="phone">Phone:</label>
+                <input type="tel" name="phone" id="phone" /><br/>
+                <label for="credit">Credit Card Number:</label>
+                <input type="number" name="credit" id="credit" /><br/>
+                <label for="orderCart">Order:</label>
+                <textarea name="order" id="orderCart" readonly></textarea><br/>
+                <input type="submit" name="submit" value="Submit Order" />
+            </form>
+        </div>
+        <div data-role="footer">
+            <p>Mom and Pops' &copy; 2013</p>
+        </div>
+    </div>
+
+    <div data-role="page" id="mapPage">
+        <div data-role="header" data-id="navbar" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#homePage">Home</a></li>
+                    <li><a href="#menuPage">Menu</a></li>
+                    <li><a href="#mapPage" class="ui-btn-active ui-state-persist">Map/Directions</a></li>
+                    <li><a href="#aboutPage">About us</a></li>
+                </ul>
+            </div><!-- navbar -->
+        </div>
+        <div data-role="content" class="content">
+            Latitude: <span id="lat"></span><br/>
+            Longitude: <span id="lon"></span><br/>
+            Url: <span id="url"></span>
+            <!--have the map div a % size-->
+            <div id="directionMap">
+            </div>
+        </div><!--content-->
+        <div data-role="footer">
+            <p>Mom and Pops' &copy; 2013</p>
+        </div>
+    </div>
+
+    <div data-role="page" id="aboutPage">
+        <div data-role="header" data-id="navbar" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#homePage">Home</a></li>
+                    <li><a href="#menuPage">Menu</a></li>
+                    <li><a href="#mapPage">Map/Directions</a></li>
+                    <li><a href="#aboutPage" class="ui-btn-active ui-state-persist">About us</a></li>
+                </ul>
+            </div><!-- navbar -->
+        </div>
+        <div data-role="content" class="content">
+            <p>Mom and Pops' Pizza Shoppe was founded in 2013 with the mission of bringing you the best cuisine possible on a slice of pie.</p>
+            <p>We use the freshest ingredients to make delicious pizza hot from the oven, from our family to yours.</p>
+        </div><!--content-->
+        <div data-role="footer">
+            <p>Mom and Pops' &copy; 2013</p>
+        </div>
+    </div>
+
+<script>
+navigator.geolocation.getCurrentPosition(function(pos){
+	var lat = pos.coords.latitude;
+	var lon = pos.coords.longitude;
+	$("#lat").text( lat );
+	$("#lon").text( lon );
+	var url = '<a href="http://maps.google.com/maps?daddr=Pizza+Hut,+3304+N.+Nevada,+Spokane,+WA+99207&saddr=' + lat + ',' + lon + '">Your Location</a>';
+	$("#url").append( url ); // can use .html as well
+    /*just change the saddr to our variable address saddr=' + lat + ',' + lng + '"*/
+    var map = '<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?daddr=Pizza+Hut,+3304+N.+Nevada,+Spokane,+WA+99207&saddr=' + lat + ',' + lon + '&amp;ll=47.67284,-117.41215&amp;spn=0.351856,0.562363&amp;t=m&amp;z=11&amp;output=embed"></iframe><br />' +
+        '<small><a href="http://maps.google.com/?ie=UTF8&amp;ll=47.67284,-117.41215&amp;spn=0.351856,0.562363&amp;t=m&amp;z=11&amp;source=embed" style="color:#0000FF;text-align:left">View Larger Map</a></small>'
+    $("#directionMap").html(map);
+})
+</script>
+
+<script>
+var cart = [];
+
+function displayCart(){
+    var cartDiv = $("#cartDiv");
+    cartDiv.html("");
+    var crust = $('.crust').filter(':checked');
+    cartDiv.append('<p>Crust: ' + crust.val() + ' ' + '</p>');
+    var size = $('.size').filter(':checked');
+    cartDiv.append('<p>Size: ' + size.val() + ' == $' + size.data('price') + ' ' + '</p>');
+    var grandTotal = 0;
+    var sizePrice = (size.data('price') - 0);
+    grandTotal += (size.data('price') - 0).toFixed(2);
+    grandTotal = grandTotal - 0;
+    for(var item in cart){
+        var qty = cart[item].qty;
+        var price = cart[item].price - 0;
+        var subtotal = qty * price;
+        grandTotal += subtotal;
+        cartDiv.append('<p>' + qty + ': ' + cart[item].name + ' $' + price.toFixed(2) + ' == $' + subtotal.toFixed(2) + ' ' + '</p>');
+    }
+    cartDiv.append( '<p>Grand Total: $' + grandTotal.toFixed(2) + '</p>');
+    $("#orderCart").html(cartDiv.text());
+}
+
+$(document).ready(function(){
+// Add a buy button to each of my products
+    $('div[data-product]').each(function(){
+        $(this).append('<button class="btnCart">Add To Cart</button>')
+    })
+    $('.btnCart').on("click", function(event){
+        var pid = $(this).parent().parent().data("product");
+        //console.log(pid);
+        if(cart[pid]){
+        cart[pid].qty += 1;
+        }
+        else{
+        cart[pid] = new Object();
+        cart[pid].pid = pid;
+        cart[pid].qty = 1;
+        cart[pid].name = $(this).parent().siblings("span").data("name");
+        cart[pid].price = $(this).parent().siblings("span").next().data("price");
+        }
+    //console.log(cart[pid].qty);
+    //console.log(cart[pid].name);
+    //console.log(cart[pid].price);
+    displayCart();
+    })
+
+    $('.crust').on('change', function(){
+        displayCart();
+    })
+
+    $('.size').on('change', function(){
+        displayCart();
+    })
+
+    $('#buy').on("click", function(event){
+        var buyUrl = "";
+        for(var item in cart){
+            buyUrl += "&pid[]=" + item + "&qty[]=" + cart[item].qty;
+        }
+        $.getJSON('buy.php?' + buyUrl, function(data){
+            /*$('ul/>', {
+                'class': 'myu-new-list',
+                html: data
+            }).appendTo('#cartDiv');*/
+            //$("#cartDiv").append(data);
+            $("#orderCart").append(data);
+        })
+        //console.log("http://cis217-4.dualghostmoons.com/buy.php?" + buyUrl)
+        //$("#buy").parent().hide();
+        $.mobile.changePage("#orderPage");
+        //$("#orderPage").filter("submit").on("click", function(){
+        //    $("#orderCart").html("<p>Your order has been received.</p>")
+        //})
+    })
+
+    $('#saveOrder').on("click", function (event) {
+        var cartStr = "[";
+        for (var item in cart) {
+            cartStr += JSON.stringify(cart[item]) + ",";
+        }
+        cartStr = cartStr.slice(0, -1);
+        cartStr += "]";
+        localStorage['cart'] = cartStr;
+    })
+
+    $('#loadOrder').on("click", function () {
+        cart = [];
+        var obj = JSON.parse(localStorage['cart']);
+        for (item in obj) {
+            pid = obj[item].pid;
+            cart[pid] = obj[item];
+        }
+        displayCart();
+    })
+})//End document ready
+
+/*
+<p>
+Swipe 1 Content
+</p>
+<div id='swipeResults'>
+
+</div>
+
+in document ready
+$("body").bind("swipe", function(event){
+    $('#swipeResults').append("Some type of swipe happened.");
+})
+$("body").bind("swipeleft swiperight", function(event){
+    var dir = event.type
+    var page = $.mobile.activePage[0];
+    $('#swipeResults').append("<p>You swiped in the: " + dir + ".</p>");
+    if(dir == "swiperight" && page.id == "swipe1")
+        $.mobile.changePage("#swipe2");
+    else
+    $.mobile.changePage("#swipe1");
+})
+$("body").bind("swiperight", function(event){
+    $('#swipeResults').append("Swiped right.");
+})
+$("body").bind("scrollstart", function(event){
+    $('#swipeResults').append("Scroll started.");
+})
+$("body").bind("scrollstop", function(event){
+    $('#swipeResults').append("Scroll stopped.");
+})
+
+$("#swipeResults").bind("tap", function(event){
+    $(event.target).css("background-color", "red");
+})
+
+$("#swipeResults").bind("taphold", function(event){
+    $(event.target).css("background-color", "blue");
+})
+
+$(window).bind("orientationchange", function(event){
+    $('#swipeResults').append("<p>Orientation changed to" + event.orentation + "</p>");
+})
+
+ */
+</script>
+
+<!--</div> #wrapper -->
+<!-- Le javascript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+<!--<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap.min.js"></script>-->
+<script src="js/bootstrap-collapse.js"></script>
+<!-- Free template created by http://freehtml5templates.com -->
+</body>
+</html>
