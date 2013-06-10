@@ -245,7 +245,7 @@ navigator.geolocation.getCurrentPosition(function(pos){
 
 <script>
 
-var deviceReadyDeferred = $.Deferred();
+/*var deviceReadyDeferred = $.Deferred();
 var jqmReadyDeferred = $.Deferred();
 
 document.addEventListener("deviceReady", deviceReady, false);
@@ -260,7 +260,14 @@ $(document).one("mobileinit", function () {
 
 $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
-function doWhenBothFrameworksLoaded() {
+function doWhenBothFrameworksLoaded() {*/
+
+document.addEventListener("deviceReady", deviceReady, false);
+
+function deviceReady() {
+
+}
+
     var cart = [];
 
     function displayCart(){
@@ -351,7 +358,7 @@ function doWhenBothFrameworksLoaded() {
         };
 
     })//End document ready
-}
+/*}*/
 
 </script>
 
