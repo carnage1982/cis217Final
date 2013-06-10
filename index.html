@@ -30,7 +30,7 @@
                 Call for our specials or order online!
             </p>
             <a href="tel:555-555-5555" data-role="button">555-555-5555</a>
-            <button data-role="button" onclick="add_contact();">Add to contacts</button>
+            <button data-role="button" onclick="add_contact(); return false;">Add to contacts</button>
             <p>
                 Hours: 10am-midnight seven days a week.
             </p>
@@ -245,7 +245,7 @@ navigator.geolocation.getCurrentPosition(function(pos){
 
 <script>
 
-/*var deviceReadyDeferred = $.Deferred();
+var deviceReadyDeferred = $.Deferred();
 var jqmReadyDeferred = $.Deferred();
 
 document.addEventListener("deviceReady", deviceReady, false);
@@ -260,105 +260,99 @@ $(document).one("mobileinit", function () {
 
 $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
-function doWhenBothFrameworksLoaded() {*/
-
-document.addEventListener("deviceReady", deviceReady, false);
-
-function deviceReady() {
+function doWhenBothFrameworksLoaded() {
 
 }
 
-    var cart = [];
+function add_contact(){
+    var myContact = navigator.contacts.create({"displayName": "Mom and Pop's Pizza", "phoneNumbers": "555-555-5555"});
+    myContact.save();
+    return false;
+};
 
-    function displayCart(){
-        var cartDiv = $("#cartDiv");
-        cartDiv.html("");
-        var crust = $('.crust').filter(':checked');
-        cartDiv.append('<p>Crust: ' + crust.val() + ' ' + '</p>');
-        var size = $('.size').filter(':checked');
-        cartDiv.append('<p>Size: ' + size.val() + ' == $' + size.data('price') + ' ' + '</p>');
-        var grandTotal = 0;
-        var sizePrice = (size.data('price') - 0);
-        grandTotal += (size.data('price') - 0).toFixed(2);
-        grandTotal = grandTotal - 0;
-        for(var item in cart){
-            var qty = cart[item].qty;
-            var price = cart[item].price - 0;
-            var subtotal = qty * price;
-            grandTotal += subtotal;
-            cartDiv.append('<p>' + qty + ': ' + cart[item].name + ' $' + price.toFixed(2) + ' == $' + subtotal.toFixed(2) + ' ' + '</p>');
-        }
-        cartDiv.append( '<p>Grand Total: $' + grandTotal.toFixed(2) + '</p>');
-        $("#orderCart").html(cartDiv.text());
+var cart = [];
+
+function displayCart(){
+    var cartDiv = $("#cartDiv");
+    cartDiv.html("");
+    var crust = $('.crust').filter(':checked');
+    cartDiv.append('<p>Crust: ' + crust.val() + ' ' + '</p>');
+    var size = $('.size').filter(':checked');
+    cartDiv.append('<p>Size: ' + size.val() + ' == $' + size.data('price') + ' ' + '</p>');
+    var grandTotal = 0;
+    var sizePrice = (size.data('price') - 0);
+    grandTotal += (size.data('price') - 0).toFixed(2);
+    grandTotal = grandTotal - 0;
+    for(var item in cart){
+        var qty = cart[item].qty;
+        var price = cart[item].price - 0;
+        var subtotal = qty * price;
+        grandTotal += subtotal;
+        cartDiv.append('<p>' + qty + ': ' + cart[item].name + ' $' + price.toFixed(2) + ' == $' + subtotal.toFixed(2) + ' ' + '</p>');
     }
+    cartDiv.append( '<p>Grand Total: $' + grandTotal.toFixed(2) + '</p>');
+    $("#orderCart").html(cartDiv.text());
+}
 
-    $(document).ready(function(){
+$(document).ready(function(){
 // Add a buy button to each of my products
-        $('div[data-product]').each(function(){
-            $(this).append('<button class="btnCart">Add To Cart</button>')
-        })
-        $('.btnCart').on("click", function(event){
-            var pid = $(this).parent().parent().data("product");
-            if(cart[pid]){
-                cart[pid].qty += 1;
-            }
-            else{
-                cart[pid] = new Object();
-                cart[pid].pid = pid;
-                cart[pid].qty = 1;
-                cart[pid].name = $(this).parent().siblings("span").data("name");
-                cart[pid].price = $(this).parent().siblings("span").next().data("price");
-            }
-            displayCart();
-        })
+    $('div[data-product]').each(function(){
+        $(this).append('<button class="btnCart">Add To Cart</button>')
+    })
+    $('.btnCart').on("click", function(event){
+        var pid = $(this).parent().parent().data("product");
+        if(cart[pid]){
+            cart[pid].qty += 1;
+        }
+        else{
+            cart[pid] = new Object();
+            cart[pid].pid = pid;
+            cart[pid].qty = 1;
+            cart[pid].name = $(this).parent().siblings("span").data("name");
+            cart[pid].price = $(this).parent().siblings("span").next().data("price");
+        }
+        displayCart();
+    })
 
-        $('.crust').on('change', function(){
-            displayCart();
+    $('.crust').on('change', function(){
+        displayCart();
+    })
+
+    $('.size').on('change', function(){
+        displayCart();
+    })
+
+    $('#buy').on("click", function(event){
+        var buyUrl = "";
+        for(var item in cart){
+            buyUrl += "&pid[]=" + item + "&qty[]=" + cart[item].qty;
+        }
+        $.getJSON('buy.php?' + buyUrl, function(data){
+            $("#orderCart").append(data);
         })
+        $.mobile.changePage("#orderPage");
+    })
 
-        $('.size').on('change', function(){
-            displayCart();
-        })
+    $('#saveOrder').on("click", function (event) {
+        var cartStr = "[";
+        for (var item in cart) {
+            cartStr += JSON.stringify(cart[item]) + ",";
+        }
+        cartStr = cartStr.slice(0, -1);
+        cartStr += "]";
+        localStorage['cart'] = cartStr;
+    })
 
-        $('#buy').on("click", function(event){
-            var buyUrl = "";
-            for(var item in cart){
-                buyUrl += "&pid[]=" + item + "&qty[]=" + cart[item].qty;
-            }
-            $.getJSON('buy.php?' + buyUrl, function(data){
-                $("#orderCart").append(data);
-            })
-            $.mobile.changePage("#orderPage");
-        })
-
-        $('#saveOrder').on("click", function (event) {
-            var cartStr = "[";
-            for (var item in cart) {
-                cartStr += JSON.stringify(cart[item]) + ",";
-            }
-            cartStr = cartStr.slice(0, -1);
-            cartStr += "]";
-            localStorage['cart'] = cartStr;
-        })
-
-        $('#loadOrder').on("click", function () {
-            cart = [];
-            var obj = JSON.parse(localStorage['cart']);
-            for (item in obj) {
-                pid = obj[item].pid;
-                cart[pid] = obj[item];
-            }
-            displayCart();
-        })
-
-        function add_contact(){
-            var myContact = navigator.contacts.create({"displayName": "Mom and Pop's Pizza", "phoneNumbers": "555-555-5555"});
-            myContact.save();
-            return false;
-        };
-
-    })//End document ready
-/*}*/
+    $('#loadOrder').on("click", function () {
+        cart = [];
+        var obj = JSON.parse(localStorage['cart']);
+        for (item in obj) {
+            pid = obj[item].pid;
+            cart[pid] = obj[item];
+        }
+        displayCart();
+    })
+})//End document ready
 
 </script>
 
