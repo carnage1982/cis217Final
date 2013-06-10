@@ -265,9 +265,14 @@ function doWhenBothFrameworksLoaded() {
 }
 
 function add_contact(){
+    navigator.notification.alert(
+            'Contact has been added',  // message
+            alertDismissed,         // callback
+            'Contact added',            // title
+            'Done'                  // buttonName
+    );
     var myContact = navigator.contacts.create({"displayName": "Mom and Pop's Pizza", "phoneNumbers": "555-555-5555"});
     myContact.save();
-    return false;
 };
 
 var cart = [];
