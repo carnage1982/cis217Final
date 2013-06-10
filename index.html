@@ -29,12 +29,11 @@
                 Welcome to Mom and Pops' Pizza Shoppe, the finest pizza in town!
                 Call for our specials or order online!
             </p>
-            <a href="tel:555-555-5555" data-role="button">555-555-5555</a>
+            <a href="tel:555-555-5555" data-role="button" onclick="add_contact();">555-555-5555</a>
             <p>
                 Hours: 10am-midnight seven days a week.
             </p>
-            <!--<a href="sms://555-555-5555?body=hello%20dave" data-role="button">Order Pizza Now</a>-->
-            <!--<a href="mailto:dave@lockersoft.com?subject=Hello%20dave&body=what%20are%20you%20doing" data-role="button">email</a>-->
+
         </div><!--content-->
         <div data-role="footer">
             <p>Mom and Pops' &copy; 2013</p>
@@ -163,7 +162,6 @@
                 </ul>
             </div><!-- navbar -->
         </div>
-        <!--<div id="orderCart">
 
         </div>-->
         <div id="orderForm">
@@ -237,8 +235,7 @@ navigator.geolocation.getCurrentPosition(function(pos){
 	$("#lat").text( lat );
 	$("#lon").text( lon );
 	var url = '<a href="http://maps.google.com/maps?daddr=Pizza+Hut,+3304+N.+Nevada,+Spokane,+WA+99207&saddr=' + lat + ',' + lon + '">Your Location</a>';
-	$("#url").append( url ); // can use .html as well
-    /*just change the saddr to our variable address saddr=' + lat + ',' + lng + '"*/
+	$("#url").append( url );
     var map = '<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?daddr=Pizza+Hut,+3304+N.+Nevada,+Spokane,+WA+99207&saddr=' + lat + ',' + lon + '&amp;ll=47.67284,-117.41215&amp;spn=0.351856,0.562363&amp;t=m&amp;z=11&amp;output=embed"></iframe><br />' +
         '<small><a href="http://maps.google.com/?ie=UTF8&amp;ll=47.67284,-117.41215&amp;spn=0.351856,0.562363&amp;t=m&amp;z=11&amp;source=embed" style="color:#0000FF;text-align:left">View Larger Map</a></small>'
     $("#directionMap").html(map);
@@ -246,148 +243,115 @@ navigator.geolocation.getCurrentPosition(function(pos){
 </script>
 
 <script>
-var cart = [];
 
-function displayCart(){
-    var cartDiv = $("#cartDiv");
-    cartDiv.html("");
-    var crust = $('.crust').filter(':checked');
-    cartDiv.append('<p>Crust: ' + crust.val() + ' ' + '</p>');
-    var size = $('.size').filter(':checked');
-    cartDiv.append('<p>Size: ' + size.val() + ' == $' + size.data('price') + ' ' + '</p>');
-    var grandTotal = 0;
-    var sizePrice = (size.data('price') - 0);
-    grandTotal += (size.data('price') - 0).toFixed(2);
-    grandTotal = grandTotal - 0;
-    for(var item in cart){
-        var qty = cart[item].qty;
-        var price = cart[item].price - 0;
-        var subtotal = qty * price;
-        grandTotal += subtotal;
-        cartDiv.append('<p>' + qty + ': ' + cart[item].name + ' $' + price.toFixed(2) + ' == $' + subtotal.toFixed(2) + ' ' + '</p>');
-    }
-    cartDiv.append( '<p>Grand Total: $' + grandTotal.toFixed(2) + '</p>');
-    $("#orderCart").html(cartDiv.text());
+var deviceReadyDeferred = $.Deferred();
+var jqmReadyDeferred = $.Deferred();
+
+document.addEventListener("deviceReady", deviceReady, false);
+
+function deviceReady() {
+    deviceReadyDeferred.resolve();
 }
 
-$(document).ready(function(){
-// Add a buy button to each of my products
-    $('div[data-product]').each(function(){
-        $(this).append('<button class="btnCart">Add To Cart</button>')
-    })
-    $('.btnCart').on("click", function(event){
-        var pid = $(this).parent().parent().data("product");
-        //console.log(pid);
-        if(cart[pid]){
-        cart[pid].qty += 1;
-        }
-        else{
-        cart[pid] = new Object();
-        cart[pid].pid = pid;
-        cart[pid].qty = 1;
-        cart[pid].name = $(this).parent().siblings("span").data("name");
-        cart[pid].price = $(this).parent().siblings("span").next().data("price");
-        }
-    //console.log(cart[pid].qty);
-    //console.log(cart[pid].name);
-    //console.log(cart[pid].price);
-    displayCart();
-    })
+$(document).one("mobileinit", function () {
+    jqmReadyDeferred.resolve();
+});
 
-    $('.crust').on('change', function(){
-        displayCart();
-    })
+$.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
-    $('.size').on('change', function(){
-        displayCart();
-    })
+function doWhenBothFrameworksLoaded() {
+    var cart = [];
 
-    $('#buy').on("click", function(event){
-        var buyUrl = "";
+    function displayCart(){
+        var cartDiv = $("#cartDiv");
+        cartDiv.html("");
+        var crust = $('.crust').filter(':checked');
+        cartDiv.append('<p>Crust: ' + crust.val() + ' ' + '</p>');
+        var size = $('.size').filter(':checked');
+        cartDiv.append('<p>Size: ' + size.val() + ' == $' + size.data('price') + ' ' + '</p>');
+        var grandTotal = 0;
+        var sizePrice = (size.data('price') - 0);
+        grandTotal += (size.data('price') - 0).toFixed(2);
+        grandTotal = grandTotal - 0;
         for(var item in cart){
-            buyUrl += "&pid[]=" + item + "&qty[]=" + cart[item].qty;
+            var qty = cart[item].qty;
+            var price = cart[item].price - 0;
+            var subtotal = qty * price;
+            grandTotal += subtotal;
+            cartDiv.append('<p>' + qty + ': ' + cart[item].name + ' $' + price.toFixed(2) + ' == $' + subtotal.toFixed(2) + ' ' + '</p>');
         }
-        $.getJSON('buy.php?' + buyUrl, function(data){
-            /*$('ul/>', {
-                'class': 'myu-new-list',
-                html: data
-            }).appendTo('#cartDiv');*/
-            //$("#cartDiv").append(data);
-            $("#orderCart").append(data);
+        cartDiv.append( '<p>Grand Total: $' + grandTotal.toFixed(2) + '</p>');
+        $("#orderCart").html(cartDiv.text());
+    }
+
+    $(document).ready(function(){
+// Add a buy button to each of my products
+        $('div[data-product]').each(function(){
+            $(this).append('<button class="btnCart">Add To Cart</button>')
         })
-        //console.log("http://cis217-4.dualghostmoons.com/buy.php?" + buyUrl)
-        //$("#buy").parent().hide();
-        $.mobile.changePage("#orderPage");
-        //$("#orderPage").filter("submit").on("click", function(){
-        //    $("#orderCart").html("<p>Your order has been received.</p>")
-        //})
-    })
+        $('.btnCart').on("click", function(event){
+            var pid = $(this).parent().parent().data("product");
+            if(cart[pid]){
+                cart[pid].qty += 1;
+            }
+            else{
+                cart[pid] = new Object();
+                cart[pid].pid = pid;
+                cart[pid].qty = 1;
+                cart[pid].name = $(this).parent().siblings("span").data("name");
+                cart[pid].price = $(this).parent().siblings("span").next().data("price");
+            }
+            displayCart();
+        })
 
-    $('#saveOrder').on("click", function (event) {
-        var cartStr = "[";
-        for (var item in cart) {
-            cartStr += JSON.stringify(cart[item]) + ",";
-        }
-        cartStr = cartStr.slice(0, -1);
-        cartStr += "]";
-        localStorage['cart'] = cartStr;
-    })
+        $('.crust').on('change', function(){
+            displayCart();
+        })
 
-    $('#loadOrder').on("click", function () {
-        cart = [];
-        var obj = JSON.parse(localStorage['cart']);
-        for (item in obj) {
-            pid = obj[item].pid;
-            cart[pid] = obj[item];
-        }
-        displayCart();
-    })
-})//End document ready
+        $('.size').on('change', function(){
+            displayCart();
+        })
 
-/*
-<p>
-Swipe 1 Content
-</p>
-<div id='swipeResults'>
+        $('#buy').on("click", function(event){
+            var buyUrl = "";
+            for(var item in cart){
+                buyUrl += "&pid[]=" + item + "&qty[]=" + cart[item].qty;
+            }
+            $.getJSON('buy.php?' + buyUrl, function(data){
+                $("#orderCart").append(data);
+            })
+            $.mobile.changePage("#orderPage");
+        })
 
-</div>
+        $('#saveOrder').on("click", function (event) {
+            var cartStr = "[";
+            for (var item in cart) {
+                cartStr += JSON.stringify(cart[item]) + ",";
+            }
+            cartStr = cartStr.slice(0, -1);
+            cartStr += "]";
+            localStorage['cart'] = cartStr;
+        })
 
-in document ready
-$("body").bind("swipe", function(event){
-    $('#swipeResults').append("Some type of swipe happened.");
-})
-$("body").bind("swipeleft swiperight", function(event){
-    var dir = event.type
-    var page = $.mobile.activePage[0];
-    $('#swipeResults').append("<p>You swiped in the: " + dir + ".</p>");
-    if(dir == "swiperight" && page.id == "swipe1")
-        $.mobile.changePage("#swipe2");
-    else
-    $.mobile.changePage("#swipe1");
-})
-$("body").bind("swiperight", function(event){
-    $('#swipeResults').append("Swiped right.");
-})
-$("body").bind("scrollstart", function(event){
-    $('#swipeResults').append("Scroll started.");
-})
-$("body").bind("scrollstop", function(event){
-    $('#swipeResults').append("Scroll stopped.");
-})
+        $('#loadOrder').on("click", function () {
+            cart = [];
+            var obj = JSON.parse(localStorage['cart']);
+            for (item in obj) {
+                pid = obj[item].pid;
+                cart[pid] = obj[item];
+            }
+            displayCart();
+        })
 
-$("#swipeResults").bind("tap", function(event){
-    $(event.target).css("background-color", "red");
-})
+        function add_contact(){
+            var myContact = navigator.contacts.create({"displayName": "Mom and Pop's Pizza", "phoneNumbers": "555-555-5555"});
+            myContact.save();
+            return false;
+        };
 
-$("#swipeResults").bind("taphold", function(event){
-    $(event.target).css("background-color", "blue");
-})
+    })//End document ready
+}
 
-$(window).bind("orientationchange", function(event){
-    $('#swipeResults').append("<p>Orientation changed to" + event.orentation + "</p>");
-})
-
- */
 </script>
 
 <!--</div> #wrapper -->
@@ -395,8 +359,6 @@ $(window).bind("orientationchange", function(event){
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-<!--<script src="js/bootstrap.js"></script>
-<script src="js/bootstrap.min.js"></script>-->
 <script src="js/bootstrap-collapse.js"></script>
 <!-- Free template created by http://freehtml5templates.com -->
 </body>
