@@ -264,6 +264,12 @@ function doWhenBothFrameworksLoaded() {
 
 }
 
+// alert dialog dismissed
+function alertDismissed() {
+    // do something
+    alert("alert dismissed");
+}
+
 function add_contact(){
     alert("button pressed");
     navigator.notification.alert(
@@ -272,7 +278,7 @@ function add_contact(){
             'Contact added',            // title
             'Done'                  // buttonName
     );
-    var myContact = navigator.contacts.create({"displayName": "Mom and Pop's Pizza", "phoneNumbers": "555-555-5555"});
+    var myContact = navigator.contacts.create({"displayName": "Mom and Pops Pizza", "phoneNumbers": "555-555-5555"});
     myContact.save();
 };
 
