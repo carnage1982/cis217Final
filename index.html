@@ -274,9 +274,7 @@ function doWhenBothFrameworksLoaded() {
  // Cordova is ready
  //
  function onDeviceReady() {
-    var myContact = navigator.contacts.create({"displayName": "Mom and Pops Pizza"});
-    myContact.phoneNumbers = "555-555-5555";
-    myContact.save();
+
  }
 
 
@@ -289,6 +287,11 @@ function alertDismissed() {
 
 function add_contact(){
     alert("button pressed");
+    var myContact = navigator.contacts.create({"displayName": "Mom and Pops Pizza"});
+    alert("myContact finished");
+    myContact.phoneNumbers = "555-555-5555";
+    myContact.save();
+    alert("saved");
     navigator.notification.alert(
             'Contact has been added',  // message
             alertDismissed,         // callback
