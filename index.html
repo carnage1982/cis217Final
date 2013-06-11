@@ -281,19 +281,28 @@ function doWhenBothFrameworksLoaded() {
 
 
 // alert dialog dismissed
-function alertDismissed() {
+//function alertDismissed() {
     // do something
-}
+    //alert("alert dismissed");
+//}
 
 function add_contact(){
-    navigator.notification.alert(
-            'Contact has been added',  // message
-            alertDismissed,         // callback
-            'Contact added',            // title
-            'Done'                  // buttonName
-    );
-    var myContact = navigator.contacts.create({"displayName": "Mom and Pops Pizza", "phoneNumbers": ["555-555-5555"]});
+    //alert("button pressed");
+    var myContact = navigator.contacts.create({"displayName": "Mom and Pops Pizza"});
+    //alert("myContact finished");
+    var phoneNumbers = [];
+    phoneNumbers[0] = new ContactField('work', '555-555-5555', false);
+    myContact.phoneNumbers = phoneNumbers;
     myContact.save();
+    //alert("saved");
+    //navigator.notification.alert(
+    //        'Contact has been added',  // message
+    //        alertDismissed,         // callback
+    //        'Contact added',            // title
+    //        'Done'                  // buttonName
+    //);
+    //var myContact = navigator.contacts.create({"displayName": "Mom and Pops Pizza", "phoneNumbers": "555-555-5555"});
+    //myContact.save();
 };
 
 var cart = [];
