@@ -245,7 +245,7 @@ navigator.geolocation.getCurrentPosition(function(pos){
 
 <script>
 
-var deviceReadyDeferred = $.Deferred();
+/*var deviceReadyDeferred = $.Deferred();
 var jqmReadyDeferred = $.Deferred();
 
 document.addEventListener("deviceReady", deviceReady, false);
@@ -262,8 +262,9 @@ $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 
 function doWhenBothFrameworksLoaded() {
 
-}
+}*/
 
+/*
 // alert dialog dismissed
 function alertDismissed() {
     // do something
@@ -280,7 +281,18 @@ function add_contact(){
     );
     var myContact = navigator.contacts.create({"displayName": "Mom and Pops Pizza", "phoneNumbers": "555-555-5555"});
     myContact.save();
-};
+};*/
+
+// Wait for Cordova to load
+//
+document.addEventListener("deviceready", onDeviceReady, false);
+
+// Cordova is ready
+//
+function onDeviceReady() {
+    var myContact = navigator.contacts.create({"displayName": "Mom and Pops Pizza"});
+    myContact.phoneNumbers = "555-555-5555";
+}
 
 var cart = [];
 

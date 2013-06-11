@@ -11,3 +11,7 @@
 .bold{
     font-weight: 800;
 }
+
+input::-webkit-inner-spin-button{
+    display: none;
+}
