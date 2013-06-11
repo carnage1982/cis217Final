@@ -264,24 +264,7 @@ function doWhenBothFrameworksLoaded() {
 
 }*/
 
-/*
-// alert dialog dismissed
-function alertDismissed() {
-    // do something
-    alert("alert dismissed");
-}
 
-function add_contact(){
-    alert("button pressed");
-    navigator.notification.alert(
-            'Contact has been added',  // message
-            alertDismissed,         // callback
-            'Contact added',            // title
-            'Done'                  // buttonName
-    );
-    var myContact = navigator.contacts.create({"displayName": "Mom and Pops Pizza", "phoneNumbers": "555-555-5555"});
-    myContact.save();
-};*/
 
 // Wait for Cordova to load
 //
@@ -290,8 +273,25 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 //
 function onDeviceReady() {
-    var myContact = navigator.contacts.create({"displayName": "Mom and Pops Pizza"});
-    myContact.phoneNumbers = "555-555-5555";
+    // alert dialog dismissed
+    function alertDismissed() {
+        // do something
+        alert("alert dismissed");
+    }
+
+    function add_contact(){
+        alert("button pressed");
+        navigator.notification.alert(
+                'Contact has been added',  // message
+                alertDismissed,         // callback
+                'Contact added',            // title
+                'Done'                  // buttonName
+        );
+        var myContact = navigator.contacts.create({"displayName": "Mom and Pops Pizza", "phoneNumbers": "555-555-5555"});
+        myContact.save();
+    };
+    //var myContact = navigator.contacts.create({"displayName": "Mom and Pops Pizza"});
+    //myContact.phoneNumbers = "555-555-5555";
 }
 
 var cart = [];
