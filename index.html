@@ -263,6 +263,9 @@ $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
 function doWhenBothFrameworksLoaded() {
 
 }
+ */
+
+////////////////////////////////////////////////////////////////////////////
 
  // Wait for Cordova to load
  //
@@ -271,11 +274,12 @@ function doWhenBothFrameworksLoaded() {
  // Cordova is ready
  //
  function onDeviceReady() {
- //var myContact = navigator.contacts.create({"displayName": "Mom and Pops Pizza"});
- //myContact.phoneNumbers = "555-555-5555";
+    var myContact = navigator.contacts.create({"displayName": "Mom and Pops Pizza"});
+    myContact.phoneNumbers = "555-555-5555";
+    myContact.save();
  }
 
-*/
+
 
 // alert dialog dismissed
 function alertDismissed() {
